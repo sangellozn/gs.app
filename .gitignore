@@ -25,3 +25,4 @@ hs_err_pid*
 /.git/
 /.settings/
 /gs.app.db
+/.apt_generated/

@@ -1,15 +1,20 @@
 /**
  *
  */
-package info.san.gs.app.model;
+package info.san.gs.app.rest.dto.product;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 /**
+ * DTO for product REST services.
+ *
  * @author sangelloz-nicoud
  *
  */
-public class ProductEntry extends AbstractEntry {
+public class ProductDto {
+
+	private Object id;
 
 	private String name;
 
@@ -22,6 +27,26 @@ public class ProductEntry extends AbstractEntry {
 	private BigDecimal minStockQty;
 
 	private BigDecimal targetStockQty;
+
+	private Date createdAt;
+
+	private Date updatedAt;
+
+	private Long version;
+
+	/**
+	 * @return the id
+	 */
+	public Object getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(final Object id) {
+		this.id = id;
+	}
 
 	/**
 	 * @return the name
@@ -105,6 +130,48 @@ public class ProductEntry extends AbstractEntry {
 	 */
 	public void setTargetStockQty(final BigDecimal targetStockQty) {
 		this.targetStockQty = targetStockQty;
+	}
+
+	/**
+	 * @return the createdAt
+	 */
+	public Date getCreatedAt() {
+		return createdAt;
+	}
+
+	/**
+	 * @param createdAt the createdAt to set
+	 */
+	public void setCreatedAt(final Date createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	/**
+	 * @return the updatedAt
+	 */
+	public Date getUpdatedAt() {
+		return updatedAt;
+	}
+
+	/**
+	 * @param updatedAt the updatedAt to set
+	 */
+	public void setUpdatedAt(final Date updatedAt) {
+		this.updatedAt = updatedAt;
+	}
+
+	/**
+	 * @return the version
+	 */
+	public Long getVersion() {
+		return version;
+	}
+
+	/**
+	 * @param version the version to set
+	 */
+	public void setVersion(final Long version) {
+		this.version = version;
 	}
 
 }

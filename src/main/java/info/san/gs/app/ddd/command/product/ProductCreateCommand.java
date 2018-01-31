@@ -3,6 +3,8 @@ package info.san.gs.app.ddd.command.product;
 import java.math.BigDecimal;
 import java.util.UUID;
 
+import info.san.gs.app.rest.dto.product.ProductDto;
+
 /**
  * Create a product.
  *
@@ -129,6 +131,17 @@ public class ProductCreateCommand {
 
 		public ProductCreateCommand build() {
 			return new ProductCreateCommand(this);
+		}
+
+		public ProductCreateCommand fromDto(final ProductDto dto) {
+			this.description = dto.getDescription();
+			this.ean13 = dto.getEan13();
+			this.minStockQty = dto.getMinStockQty();
+			this.name = dto.getName();
+			this.stockQty = dto.getStockQty();
+			this.targetStockQty = dto.getTargetStockQty();
+
+			return this.build();
 		}
 
 	}

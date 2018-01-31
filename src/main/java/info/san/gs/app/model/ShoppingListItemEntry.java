@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package info.san.gs.app.model;
 
@@ -11,27 +11,11 @@ import java.math.BigDecimal;
  */
 public class ShoppingListItemEntry extends AbstractEntry {
 
-	private String id;
-	
 	private String productId;
-	
+
 	private String shoppingListId;
-	
+
 	private BigDecimal qty;
-
-	/**
-	 * @return the id
-	 */
-	public String getId() {
-		return id;
-	}
-
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(String id) {
-		this.id = id;
-	}
 
 	/**
 	 * @return the productId
@@ -43,7 +27,7 @@ public class ShoppingListItemEntry extends AbstractEntry {
 	/**
 	 * @param productId the productId to set
 	 */
-	public void setProductId(String productId) {
+	public void setProductId(final String productId) {
 		this.productId = productId;
 	}
 
@@ -57,7 +41,7 @@ public class ShoppingListItemEntry extends AbstractEntry {
 	/**
 	 * @param shoppingListId the shoppingListId to set
 	 */
-	public void setShoppingListId(String shoppingListId) {
+	public void setShoppingListId(final String shoppingListId) {
 		this.shoppingListId = shoppingListId;
 	}
 
@@ -71,8 +55,8 @@ public class ShoppingListItemEntry extends AbstractEntry {
 	/**
 	 * @param qty the qty to set
 	 */
-	public void setQty(BigDecimal qty) {
+	public void setQty(final BigDecimal qty) {
 		this.qty = qty;
 	}
-	
+
 }

@@ -1,7 +1,7 @@
 /**
  *
  */
-package info.san.gs.app.ddd.command.product.shoppinglist;
+package info.san.gs.app.ddd.command.shoppinglist;
 
 /**
  * Ask for the shopping list computation.

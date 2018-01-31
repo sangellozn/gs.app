@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package info.san.gs.app.model;
 
@@ -9,14 +9,16 @@ import java.util.Date;
  * @author sangelloz-nicoud
  *
  */
-public abstract class AbstractEntry {
+public abstract class AbstractEntry implements Entry {
+
+	private String id;
 
 	private Date createdAt;
-	
+
 	private Date updatedAt;
-	
+
 	private Long version;
-	
+
 	private boolean deleted;
 
 	/**
@@ -29,13 +31,14 @@ public abstract class AbstractEntry {
 	/**
 	 * @param createdAt the createdAt to set
 	 */
-	public void setCreatedAt(Date createdAt) {
+	public void setCreatedAt(final Date createdAt) {
 		this.createdAt = createdAt;
 	}
 
 	/**
 	 * @return the updatedAt
 	 */
+	@Override
 	public Date getUpdatedAt() {
 		return updatedAt;
 	}
@@ -43,13 +46,14 @@ public abstract class AbstractEntry {
 	/**
 	 * @param updatedAt the updatedAt to set
 	 */
-	public void setUpdatedAt(Date updatedAt) {
+	public void setUpdatedAt(final Date updatedAt) {
 		this.updatedAt = updatedAt;
 	}
 
 	/**
 	 * @return the version
 	 */
+	@Override
 	public Long getVersion() {
 		return version;
 	}
@@ -57,13 +61,14 @@ public abstract class AbstractEntry {
 	/**
 	 * @param version the version to set
 	 */
-	public void setVersion(Long version) {
+	public void setVersion(final Long version) {
 		this.version = version;
 	}
 
 	/**
 	 * @return the deleted
 	 */
+	@Override
 	public boolean isDeleted() {
 		return deleted;
 	}
@@ -71,8 +76,23 @@ public abstract class AbstractEntry {
 	/**
 	 * @param deleted the deleted to set
 	 */
-	public void setDeleted(boolean deleted) {
+	public void setDeleted(final boolean deleted) {
 		this.deleted = deleted;
 	}
-	
+
+	/**
+	 * @return the id
+	 */
+	@Override
+	public String getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(final String id) {
+		this.id = id;
+	}
+
 }
