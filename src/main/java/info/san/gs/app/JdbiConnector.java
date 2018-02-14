@@ -19,9 +19,9 @@ public final class JdbiConnector {
 	}
 
 	private JdbiConnector() {
-		jdbi = Jdbi.create(Persistence.getInstance().getDataSource());
-		jdbi.installPlugin(new SqlObjectPlugin());
-		jdbi.registerRowMapper(new ProductEntryRowMapper());
+		this.jdbi = Jdbi.create(Persistence.getInstance().getDataSource());
+		this.jdbi.installPlugin(new SqlObjectPlugin());
+		this.jdbi.registerRowMapper(new ProductEntryRowMapper());
 	}
 
 	public static final Jdbi getJdbi() {

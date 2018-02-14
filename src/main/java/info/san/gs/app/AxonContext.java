@@ -12,6 +12,9 @@ import org.axonframework.common.transaction.NoTransactionManager;
 import org.axonframework.config.Configurer;
 import org.axonframework.config.DefaultConfigurer;
 import org.axonframework.config.EventHandlingConfiguration;
+import org.axonframework.eventhandling.PropagatingErrorHandler;
+import org.axonframework.eventhandling.SimpleEventHandlerInvoker;
+import org.axonframework.eventhandling.SubscribingEventProcessor;
 import org.axonframework.eventsourcing.eventstore.EmbeddedEventStore;
 import org.axonframework.eventsourcing.eventstore.EventStorageEngine;
 import org.axonframework.eventsourcing.eventstore.EventStore;
@@ -40,15 +43,15 @@ public final class AxonContext {
 
 	private AxonContext() {
 		this.commandBus = new SimpleCommandBus();
-		this.commandGateway = new DefaultCommandGateway(commandBus);
+		this.commandGateway = new DefaultCommandGateway(this.commandBus);
 
 		this.eventStorageEngine = new JdbcEventStorageEngine(
 				new DataSourceConnectionProvider(Persistence.getInstance().getDataSource()), NoTransactionManager.INSTANCE);
 
-		this.eventStore = new EmbeddedEventStore(eventStorageEngine);
+		this.eventStore = new EmbeddedEventStore(this.eventStorageEngine);
 
 		final Configurer configurer = DefaultConfigurer.defaultConfiguration();
-		configurer.configureEmbeddedEventStore(config -> eventStorageEngine);
+		configurer.configureEmbeddedEventStore(config -> this.eventStorageEngine);
 		configurer.configureCommandBus(config -> this.commandBus);
 		configurer.configureEventBus(config -> this.eventStore);
 
@@ -63,6 +66,9 @@ public final class AxonContext {
 		// Configuring event listeners.
 		final EventHandlingConfiguration eventHandlingModule =  new EventHandlingConfiguration();
 		eventHandlingModule.registerEventHandler(config -> new ProductEventHandler());
+		eventHandlingModule.registerEventProcessor("default", (config, name, eh) -> new SubscribingEventProcessor(name,
+		        new SimpleEventHandlerInvoker(eh, PropagatingErrorHandler.INSTANCE), this.eventStore));
+		eventHandlingModule.assignHandlersMatching("default", (criteria) -> true);
 		// others event handlers.
 
 		configurer.registerModule(eventHandlingModule);
@@ -73,28 +79,28 @@ public final class AxonContext {
 	 * @return the commandGateway
 	 */
 	public CommandGateway getCommandGateway() {
-		return commandGateway;
+		return this.commandGateway;
 	}
 
 	/**
 	 * @return the eventStore
 	 */
 	public EventStore getEventStore() {
-		return eventStore;
+		return this.eventStore;
 	}
 
 	/**
 	 * @return the eventStorageEngine
 	 */
 	public EventStorageEngine getEventStorageEngine() {
-		return eventStorageEngine;
+		return this.eventStorageEngine;
 	}
 
 	/**
 	 * @return the commandBus
 	 */
 	public CommandBus getCommandBus() {
-		return commandBus;
+		return this.commandBus;
 	}
 
 	public static final AxonContext getInstance() {
