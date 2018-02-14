@@ -4,7 +4,8 @@
 package info.san.gs.app.rest.dto.product;
 
 import java.math.BigDecimal;
-import java.util.Date;
+
+import info.san.gs.app.rest.dto.AbstractDto;
 
 /**
  * DTO for product REST services.
@@ -12,9 +13,7 @@ import java.util.Date;
  * @author sangelloz-nicoud
  *
  */
-public class ProductDto {
-
-	private String id;
+public class ProductDto extends AbstractDto {
 
 	private String name;
 
@@ -28,33 +27,11 @@ public class ProductDto {
 
 	private BigDecimal targetStockQty;
 
-	private Date createdAt;
-
-	private Date updatedAt;
-
-	private Long version;
-
-	private boolean deleted;
-
-	/**
-	 * @return the id
-	 */
-	public String getId() {
-		return id;
-	}
-
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(final String id) {
-		this.id = id;
-	}
-
 	/**
 	 * @return the name
 	 */
 	public String getName() {
-		return name;
+		return this.name;
 	}
 
 	/**
@@ -68,7 +45,7 @@ public class ProductDto {
 	 * @return the description
 	 */
 	public String getDescription() {
-		return description;
+		return this.description;
 	}
 
 	/**
@@ -82,7 +59,7 @@ public class ProductDto {
 	 * @return the ean13
 	 */
 	public String getEan13() {
-		return ean13;
+		return this.ean13;
 	}
 
 	/**
@@ -96,7 +73,7 @@ public class ProductDto {
 	 * @return the stockQty
 	 */
 	public BigDecimal getStockQty() {
-		return stockQty;
+		return this.stockQty;
 	}
 
 	/**
@@ -110,7 +87,7 @@ public class ProductDto {
 	 * @return the minStockQty
 	 */
 	public BigDecimal getMinStockQty() {
-		return minStockQty;
+		return this.minStockQty;
 	}
 
 	/**
@@ -124,7 +101,7 @@ public class ProductDto {
 	 * @return the targetStockQty
 	 */
 	public BigDecimal getTargetStockQty() {
-		return targetStockQty;
+		return this.targetStockQty;
 	}
 
 	/**
@@ -134,60 +111,9 @@ public class ProductDto {
 		this.targetStockQty = targetStockQty;
 	}
 
-	/**
-	 * @return the createdAt
-	 */
-	public Date getCreatedAt() {
-		return createdAt;
-	}
-
-	/**
-	 * @param createdAt the createdAt to set
-	 */
-	public void setCreatedAt(final Date createdAt) {
-		this.createdAt = createdAt;
-	}
-
-	/**
-	 * @return the updatedAt
-	 */
-	public Date getUpdatedAt() {
-		return updatedAt;
-	}
-
-	/**
-	 * @param updatedAt the updatedAt to set
-	 */
-	public void setUpdatedAt(final Date updatedAt) {
-		this.updatedAt = updatedAt;
-	}
-
-	/**
-	 * @return the version
-	 */
-	public Long getVersion() {
-		return version;
-	}
-
-	/**
-	 * @param version the version to set
-	 */
-	public void setVersion(final Long version) {
-		this.version = version;
-	}
-
-	/**
-	 * @return the deleted
-	 */
-	public boolean isDeleted() {
-		return deleted;
-	}
-
-	/**
-	 * @param deleted the deleted to set
-	 */
-	public void setDeleted(final boolean deleted) {
-		this.deleted = deleted;
-	}
+    @Override
+    protected String getPath() {
+        return "products";
+    }
 
 }

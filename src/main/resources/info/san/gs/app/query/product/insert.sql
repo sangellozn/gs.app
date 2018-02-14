@@ -15,10 +15,10 @@ INSERT INTO product (
 	, :name
 	, :description
 	, :ean13
-	, :stock_qty
-	, :min_stock_qty
-	, :target_stock_qty
-	, datetime('now')
+	, :stockQty
+	, :minStockQty
+	, :targetStockQty
+	, strftime('%s000','now')
 	, null
 	, 1
 	, 0

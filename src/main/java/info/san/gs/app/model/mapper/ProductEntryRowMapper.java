@@ -24,7 +24,7 @@ public class ProductEntryRowMapper implements RowMapper<ProductEntry> {
 	public ProductEntry map(final ResultSet rs, final StatementContext ctx) throws SQLException {
 		final ProductEntry result = new ProductEntry();
 
-		result.setCreatedAt(rs.getDate("created_at"));
+		result.setCreatedAt(rs.getTimestamp("created_at"));
 		result.setDeleted(rs.getBoolean("deleted"));
 		result.setDescription(rs.getString("description"));
 		result.setEan13(rs.getString("ean13"));
@@ -33,7 +33,7 @@ public class ProductEntryRowMapper implements RowMapper<ProductEntry> {
 		result.setName(rs.getString("name"));
 		result.setStockQty(rs.getBigDecimal("stock_qty"));
 		result.setTargetStockQty(rs.getBigDecimal("target_stock_qty"));
-		result.setUpdatedAt(rs.getDate("updated_at"));
+		result.setUpdatedAt(rs.getTimestamp("updated_at"));
 		result.setVersion(rs.getLong("version"));
 
 		return result;
