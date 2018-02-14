@@ -11,12 +11,15 @@ import org.axonframework.common.jdbc.DataSourceConnectionProvider;
 import org.axonframework.common.transaction.NoTransactionManager;
 import org.axonframework.config.Configurer;
 import org.axonframework.config.DefaultConfigurer;
+import org.axonframework.config.EventHandlingConfiguration;
 import org.axonframework.eventsourcing.eventstore.EmbeddedEventStore;
 import org.axonframework.eventsourcing.eventstore.EventStorageEngine;
 import org.axonframework.eventsourcing.eventstore.EventStore;
 import org.axonframework.eventsourcing.eventstore.jdbc.JdbcEventStorageEngine;
 
 import info.san.gs.app.ddd.aggregate.ProductAggregate;
+import info.san.gs.app.ddd.command.handler.ProductCommandHandler;
+import info.san.gs.app.ddd.event.handler.ProductEventHandler;
 
 /**
  * Classe de context pour AxonFramework.
@@ -54,12 +57,16 @@ public final class AxonContext {
 		// others.
 
 		// Registering command handlers.
-		//configurer.registerCommandHandler(config -> new AnnotatedCommandHandler());
-		// others.
+		configurer.registerCommandHandler(config -> new ProductCommandHandler());
+		// others command handlers.
 
 		// Configuring event listeners.
-		//configurer.registerModule(module)
-		// others.
+		final EventHandlingConfiguration eventHandlingModule =  new EventHandlingConfiguration();
+		eventHandlingModule.registerEventHandler(config -> new ProductEventHandler());
+		// others event handlers.
+
+		configurer.registerModule(eventHandlingModule);
+		configurer.start();
 	}
 
 	/**

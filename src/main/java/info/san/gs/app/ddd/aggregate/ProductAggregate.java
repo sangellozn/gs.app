@@ -7,6 +7,7 @@ import static org.axonframework.commandhandling.model.AggregateLifecycle.apply;
 
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.commandhandling.model.AggregateIdentifier;
+import org.axonframework.eventsourcing.EventSourcingHandler;
 
 import info.san.gs.app.ddd.command.product.ProductCreateCommand;
 import info.san.gs.app.ddd.event.product.ProductCreatedEvent;
@@ -27,6 +28,11 @@ public class ProductAggregate {
 
 	protected ProductAggregate() {
 		// Nothing.
+	}
+
+	@EventSourcingHandler
+	protected void on(final ProductCreatedEvent evt) {
+		this.id = evt.getId();
 	}
 
 }

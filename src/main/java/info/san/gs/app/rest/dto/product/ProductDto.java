@@ -14,7 +14,7 @@ import java.util.Date;
  */
 public class ProductDto {
 
-	private Object id;
+	private String id;
 
 	private String name;
 
@@ -34,17 +34,19 @@ public class ProductDto {
 
 	private Long version;
 
+	private boolean deleted;
+
 	/**
 	 * @return the id
 	 */
-	public Object getId() {
+	public String getId() {
 		return id;
 	}
 
 	/**
 	 * @param id the id to set
 	 */
-	public void setId(final Object id) {
+	public void setId(final String id) {
 		this.id = id;
 	}
 
@@ -172,6 +174,20 @@ public class ProductDto {
 	 */
 	public void setVersion(final Long version) {
 		this.version = version;
+	}
+
+	/**
+	 * @return the deleted
+	 */
+	public boolean isDeleted() {
+		return deleted;
+	}
+
+	/**
+	 * @param deleted the deleted to set
+	 */
+	public void setDeleted(final boolean deleted) {
+		this.deleted = deleted;
 	}
 
 }

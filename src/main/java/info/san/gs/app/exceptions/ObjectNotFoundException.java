@@ -9,8 +9,10 @@ package info.san.gs.app.exceptions;
  */
 public class ObjectNotFoundException extends RuntimeException {
 
+	private static final long serialVersionUID = -12905657201990793L;
+
 	public ObjectNotFoundException(final Class<?> clazz, final Object id) {
-		super("Object [type=" + clazz.getName() + "] with [id=" + id + "] is not found.");
+		super("Object [type=" + clazz.getSimpleName() + "] with [id=" + id + "] is not found.");
 	}
 
 	public ObjectNotFoundException(final String message, final Throwable cause) {

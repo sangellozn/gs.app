@@ -3,6 +3,8 @@ package info.san.gs.app.ddd.command.product;
 import java.math.BigDecimal;
 import java.util.UUID;
 
+import org.axonframework.commandhandling.TargetAggregateIdentifier;
+
 import info.san.gs.app.rest.dto.product.ProductDto;
 
 /**
@@ -12,6 +14,7 @@ import info.san.gs.app.rest.dto.product.ProductDto;
  */
 public class ProductCreateCommand {
 
+	@TargetAggregateIdentifier
 	private final String id;
 
 	private final String name;

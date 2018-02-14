@@ -15,6 +15,21 @@ CREATE TABLE `product` (
 	PRIMARY KEY(`id`)
 );
 
+CREATE TABLE DomainEventEntry (
+	globalIndex INTEGER PRIMARY KEY AUTOINCREMENT,
+	aggregateIdentifier VARCHAR(255) NOT NULL,
+	sequenceNumber BIGINT NOT NULL,
+	`type` VARCHAR(255),
+	eventIdentifier VARCHAR(255) NOT NULL,
+	metaData blob,
+	payload blob NOT NULL,
+	payloadRevision VARCHAR(255),
+	payloadType VARCHAR(255) NOT NULL,
+	timeStamp VARCHAR(255) NOT NULL,
+	UNIQUE (aggregateIdentifier, sequenceNumber),
+	UNIQUE (eventIdentifier)
+);
+
 -- Create shoppingList table.
 
 -- Create shoppingListItem table.
