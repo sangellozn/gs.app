@@ -5,23 +5,54 @@ package info.san.gs.app.rest.dto;
 
 import java.util.Collection;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  *
  * Abstract DTO corresponding to a page of a result for listing all object.
+ *
+ * @param <DTO> the DTO type for the page.
  *
  * @author sangelloz-nicoud
  */
 public abstract class AbstractPageDto<DTO> {
 
-	private Collection<DTO> data;
+	private final Collection<DTO> data;
 
-	private Long count;
+	private final long count;
 
-	private Long totalCount;
+	private final long totalCount;
 
 	private String previousPage;
 
 	private String nextPage;
+
+	protected abstract String getPath();
+
+	protected void computePages(final long currentPage, final long limit) {
+		if (currentPage > 0) {
+			this.previousPage = this.getPath() + "?p=" + (currentPage - 1) + "&l=" + limit;
+		}
+
+		if ((currentPage + 1) * limit < this.totalCount) {
+			this.nextPage = this.getPath() + "?p=" + (currentPage + 1) + "&l=" + limit;
+		}
+	}
+
+	/**
+	 * Default constructor.
+	 *
+	 * @param data data for the page.
+	 * @param totalCount the number of total records.
+	 * @param currentPage the current page viewed.
+	 * @param limit max number of records to retrieve.
+	 */
+	public AbstractPageDto(final Collection<DTO> data, final long totalCount, final long currentPage, final long limit) {
+		this.data = data;
+		this.count = data.size();
+		this.totalCount = totalCount;
+		this.computePages(currentPage, limit);
+	}
 
 	/**
 	 * @return the data
@@ -31,66 +62,33 @@ public abstract class AbstractPageDto<DTO> {
 	}
 
 	/**
-	 * @param data the data to set
-	 */
-	public void setData(final Collection<DTO> data) {
-		this.data = data;
-	}
-
-	/**
 	 * @return the count
 	 */
-	public Long getCount() {
+	public long getCount() {
 		return count;
-	}
-
-	/**
-	 * @param count the count to set
-	 */
-	public void setCount(final Long count) {
-		this.count = count;
 	}
 
 	/**
 	 * @return the totalCount
 	 */
-	public Long getTotalCount() {
+	public long getTotalCount() {
 		return totalCount;
-	}
-
-	/**
-	 * @param totalCount the totalCount to set
-	 */
-	public void setTotalCount(final Long totalCount) {
-		this.totalCount = totalCount;
 	}
 
 	/**
 	 * @return the previousPage
 	 */
+	@JsonProperty("_prev")
 	public String getPreviousPage() {
 		return previousPage;
 	}
 
 	/**
-	 * @param previousPage the previousPage to set
-	 */
-	public void setPreviousPage(final String previousPage) {
-		this.previousPage = previousPage;
-	}
-
-	/**
 	 * @return the nextPage
 	 */
+	@JsonProperty("_next")
 	public String getNextPage() {
 		return nextPage;
-	}
-
-	/**
-	 * @param nextPage the nextPage to set
-	 */
-	public void setNextPage(final String nextPage) {
-		this.nextPage = nextPage;
 	}
 
 }

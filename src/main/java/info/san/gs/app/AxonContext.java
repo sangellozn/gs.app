@@ -12,6 +12,9 @@ import org.axonframework.common.transaction.NoTransactionManager;
 import org.axonframework.config.Configurer;
 import org.axonframework.config.DefaultConfigurer;
 import org.axonframework.config.EventHandlingConfiguration;
+import org.axonframework.eventhandling.PropagatingErrorHandler;
+import org.axonframework.eventhandling.SimpleEventHandlerInvoker;
+import org.axonframework.eventhandling.SubscribingEventProcessor;
 import org.axonframework.eventsourcing.eventstore.EmbeddedEventStore;
 import org.axonframework.eventsourcing.eventstore.EventStorageEngine;
 import org.axonframework.eventsourcing.eventstore.EventStore;
@@ -54,7 +57,7 @@ public final class AxonContext {
 
 		// Registering aggregates
 		configurer.configureAggregate(ProductAggregate.class);
-		// others.
+		// others aggregates.
 
 		// Registering command handlers.
 		configurer.registerCommandHandler(config -> new ProductCommandHandler());
@@ -63,9 +66,9 @@ public final class AxonContext {
 		// Configuring event listeners.
 		final EventHandlingConfiguration eventHandlingModule =  new EventHandlingConfiguration();
 		eventHandlingModule.registerEventHandler(config -> new ProductEventHandler());
-		/*eventHandlingModule.registerEventProcessor("default", (config, name, eh) -> new SubscribingEventProcessor(name,
+		eventHandlingModule.registerEventProcessor("default", (config, name, eh) -> new SubscribingEventProcessor(name,
 		        new SimpleEventHandlerInvoker(eh, PropagatingErrorHandler.INSTANCE), this.eventStore));
-		eventHandlingModule.assignHandlersMatching("default", (criteria) -> true);*/
+		eventHandlingModule.assignHandlersMatching("default", (criteria) -> true);
 		// others event handlers.
 
 		configurer.registerModule(eventHandlingModule);
@@ -100,6 +103,11 @@ public final class AxonContext {
 		return this.commandBus;
 	}
 
+	/**
+	 * Get the {@link AxonContext} instance.
+	 *
+	 * @return the AxonContext instance.
+	 */
 	public static final AxonContext getInstance() {
 		return Holder.INSTANCE;
 	}

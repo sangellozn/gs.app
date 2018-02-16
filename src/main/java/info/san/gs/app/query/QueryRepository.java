@@ -15,8 +15,15 @@ import info.san.gs.app.model.Entry;
  */
 public interface QueryRepository<E extends Entry> {
 
-	E get(Object id);
+	E get(String id);
 
-	Collection<E> getAll(Long page, Long limit, String order);
+	Collection<E> getAll(long page, long limit, String order);
+
+	/**
+	 * Query the total count of all objects.
+	 *
+	 * @return the total count.
+	 */
+	long count();
 
 }

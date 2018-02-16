@@ -6,6 +6,7 @@ import org.jdbi.v3.sqlobject.SqlObjectPlugin;
 import info.san.gs.app.model.mapper.ProductEntryRowMapper;
 
 /**
+ * JDBI connector for the database access.
  *
  * @author sangelloz-nicoud
  *
@@ -24,6 +25,11 @@ public final class JdbiConnector {
 		this.jdbi.registerRowMapper(new ProductEntryRowMapper());
 	}
 
+	/**
+	 * Get the {@link Jdbi} instance.
+	 *
+	 * @return the Jdbi instance.
+	 */
 	public static final Jdbi getJdbi() {
 		return Holder.INSTANCE.jdbi;
 	}

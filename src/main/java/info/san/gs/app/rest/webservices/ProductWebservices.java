@@ -1,17 +1,23 @@
 package info.san.gs.app.rest.webservices;
 
 import java.net.URI;
+import java.util.Collection;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import info.san.gs.app.ddd.command.product.ProductCreateCommand;
+import info.san.gs.app.ddd.command.product.ProductDeleteCommand;
 import info.san.gs.app.model.ProductEntry;
 import info.san.gs.app.query.product.ProductQueryRepository;
 import info.san.gs.app.query.product.ProductQueryRepositoryImpl;
@@ -32,10 +38,15 @@ public class ProductWebservices extends AbstractWebservices<ProductDto, ProductP
 
 	private final ProductQueryRepository productQueryRepository = new ProductQueryRepositoryImpl();
 
+	@GET
 	@Override
-	public ProductPageDto getAll(final Long page, final Long limit, final String order) {
-		// TODO Auto-generated method stub
-		return null;
+	public ProductPageDto getAll(@QueryParam("p") @DefaultValue("0") final long page,
+			@QueryParam("l") @DefaultValue("20") final long limit,
+			@QueryParam("o") @DefaultValue("") final String order) {
+		final Collection<ProductEntry> data = this.productQueryRepository.getAll(page, limit, order);
+		return new ProductPageDto(ProductMapper.INSTANCE.productEntryCollectionToProductDtoCollection(data),
+				this.productQueryRepository.count(),
+				page, limit);
 	}
 
 	@GET
@@ -54,22 +65,27 @@ public class ProductWebservices extends AbstractWebservices<ProductDto, ProductP
 		return Response.created(URI.create("products/" + cmd.getId())).build();
 	}
 
+	@PUT
+	@Path("{id}")
 	@Override
-	public void update(final ProductDto obj) {
+	public void update(@PathParam("id") final String id, final ProductDto obj) {
 		// TODO Auto-generated method stub
 
 	}
 
+	@DELETE
+	@Path("{id}")
 	@Override
-	public void delete(final Object id) {
-		// TODO Auto-generated method stub
-
+	public void delete(@PathParam("id") final String id) {
+		final ProductDeleteCommand cmd = new ProductDeleteCommand(id);
+		this.getCommandGateway().sendAndWait(cmd);
 	}
 
+	@GET
+	@Path("/count")
 	@Override
-	public Long count() {
-		// TODO Auto-generated method stub
-		return null;
+	public long count() {
+		return this.productQueryRepository.count();
 	}
 
 

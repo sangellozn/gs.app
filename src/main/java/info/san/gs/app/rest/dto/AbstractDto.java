@@ -5,14 +5,12 @@ package info.san.gs.app.rest.dto;
 
 import java.util.Date;
 
-import javax.json.bind.annotation.JsonbNillable;
-import javax.json.bind.annotation.JsonbProperty;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * @author sangelloz-nicoud
  *
  */
-@JsonbNillable
 public abstract class AbstractDto {
 
 	private String id;
@@ -51,7 +49,7 @@ public abstract class AbstractDto {
     /**
      * @param createdAt the createdAt to set
      */
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(final Date createdAt) {
         this.createdAt = createdAt;
     }
 
@@ -65,7 +63,7 @@ public abstract class AbstractDto {
     /**
      * @param updatedAt the updatedAt to set
      */
-    public void setUpdatedAt(Date updatedAt) {
+    public void setUpdatedAt(final Date updatedAt) {
         this.updatedAt = updatedAt;
     }
 
@@ -79,7 +77,7 @@ public abstract class AbstractDto {
     /**
      * @param version the version to set
      */
-    public void setVersion(Long version) {
+    public void setVersion(final Long version) {
         this.version = version;
     }
 
@@ -93,11 +91,11 @@ public abstract class AbstractDto {
     /**
      * @param deleted the deleted to set
      */
-    public void setDeleted(boolean deleted) {
+    public void setDeleted(final boolean deleted) {
         this.deleted = deleted;
     }
 
-    @JsonbProperty("_self")
+    @JsonProperty("_self")
 	public String getSelf() {
 		return this.getPath() + "/" + this.getId();
 	}

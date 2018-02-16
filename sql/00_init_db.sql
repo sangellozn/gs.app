@@ -1,13 +1,13 @@
 
 -- Create product table.
 CREATE TABLE `product` (
-	`id`	TEXT NOT NULL CHECK(length(id) = 36),
-	`name`	TEXT NOT NULL,
-	`description`	TEXT NOT NULL,
-	`ean13`	TEXT NOT NULL,
-	`stock_qty`	NUMERIC NOT NULL,
-	`min_stock_qty`	NUMERIC NOT NULL,
-	`target_stock_qty`	NUMERIC NOT NULL CHECK(target_stock_qty > min_stock_qty),
+	`id`	VARCHAR(36) NOT NULL CHECK(length(id) = 36),
+	`name`	VARCHAR(100) NOT NULL,
+	`description`	VARCHAR(255) NOT NULL,
+	`ean13`	VARCHAR(13) NOT NULL CHECK(length(ean13) = 13),
+	`stock_qty`	DECIMAL(10,2) NOT NULL,
+	`min_stock_qty`	DECIMAL(10,2) NOT NULL,
+	`target_stock_qty`	DECIMAL(10,2) NOT NULL CHECK(target_stock_qty > min_stock_qty),
 	`created_at`	INTEGER NOT NULL,
 	`updated_at`	INTEGER,
 	`version`	INTEGER NOT NULL DEFAULT 1,
@@ -15,6 +15,11 @@ CREATE TABLE `product` (
 	PRIMARY KEY(`id`)
 );
 
+-- Create shoppingList table.
+
+-- Create shoppingListItem table.
+
+-- Table for DDD event.
 CREATE TABLE DomainEventEntry (
 	globalIndex INTEGER PRIMARY KEY AUTOINCREMENT,
 	aggregateIdentifier VARCHAR(255) NOT NULL,
@@ -29,7 +34,3 @@ CREATE TABLE DomainEventEntry (
 	UNIQUE (aggregateIdentifier, sequenceNumber),
 	UNIQUE (eventIdentifier)
 );
-
--- Create shoppingList table.
-
--- Create shoppingListItem table.

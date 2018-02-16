@@ -11,20 +11,30 @@ import javax.ws.rs.core.Response;
  * @author sangelloz-nicoud
  *
  * @param <D> the DTO type.
- *
+ * @param <P> the page DTO type.
  */
 public interface Webservices<D, P> {
 
-	P getAll(Long page, Long limit, String order);
+	P getAll(long page, long limit, String order);
 
 	D get(String id);
 
 	Response create(D obj);
 
-	void update(D obj);
+	void update(String id, D obj);
 
-	void delete(Object id);
+	/**
+	 * Delete an item by its identifier.
+	 *
+	 * @param id the item identifier to delete.
+	 */
+	void delete(String id);
 
-	Long count();
+	/**
+	 * Count all items.
+	 *
+	 * @return the total count of items.
+	 */
+	long count();
 
 }

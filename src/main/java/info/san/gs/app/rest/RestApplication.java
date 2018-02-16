@@ -9,6 +9,8 @@ import java.util.Set;
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 
+import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
+
 import info.san.gs.app.rest.exceptions.mapper.ObjectNotFoundExceptionMapper;
 import info.san.gs.app.rest.webservices.ProductWebservices;
 
@@ -34,6 +36,7 @@ public class RestApplication extends Application {
 	public Set<Object> getSingletons() {
 		final Set<Object> singletons = new HashSet<>();
 
+		singletons.add(new JacksonJsonProvider());
 		singletons.add(new ObjectNotFoundExceptionMapper());
 
 		return singletons;

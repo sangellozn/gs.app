@@ -5,6 +5,12 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+/**
+ * Datasource for the database connection.
+ *
+ * @author sangelloz-nicoud
+ *
+ */
 public final class Persistence {
 
 	private static final String DS_NAME = "jdbc/gs.app.db";

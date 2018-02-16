@@ -8,8 +8,12 @@ import org.axonframework.commandhandling.gateway.CommandGateway;
 import info.san.gs.app.AxonContext;
 
 /**
+ * Abstract webservice classe.
+ *
  * @author sangelloz-nicoud
  *
+ * @param <D> the DTO type.
+ * @param <P> the page DTO type.
  */
 public abstract class AbstractWebservices<D, P> implements Webservices<D, P> {
 
