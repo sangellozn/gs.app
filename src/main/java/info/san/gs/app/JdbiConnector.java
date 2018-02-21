@@ -20,7 +20,7 @@ public final class JdbiConnector {
 	}
 
 	private JdbiConnector() {
-		this.jdbi = Jdbi.create(Persistence.getInstance().getDataSource());
+		this.jdbi = Jdbi.create(Persistence.getDataSource());
 		this.jdbi.installPlugin(new SqlObjectPlugin());
 		this.jdbi.registerRowMapper(new ProductEntryRowMapper());
 	}

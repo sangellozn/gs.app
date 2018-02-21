@@ -12,10 +12,8 @@ import info.san.gs.app.AxonContext;
  *
  * @author sangelloz-nicoud
  *
- * @param <D> the DTO type.
- * @param <P> the page DTO type.
  */
-public abstract class AbstractWebservices<D, P> implements Webservices<D, P> {
+public abstract class AbstractWebservices {
 
 	private final CommandGateway commandGateway;
 

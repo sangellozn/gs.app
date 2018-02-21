@@ -46,7 +46,7 @@ public final class AxonContext {
 		this.commandGateway = new DefaultCommandGateway(this.commandBus);
 
 		this.eventStorageEngine = new JdbcEventStorageEngine(
-				new DataSourceConnectionProvider(Persistence.getInstance().getDataSource()), NoTransactionManager.INSTANCE);
+				new DataSourceConnectionProvider(Persistence.getDataSource()), NoTransactionManager.INSTANCE);
 
 		this.eventStore = new EmbeddedEventStore(this.eventStorageEngine);
 
@@ -66,10 +66,11 @@ public final class AxonContext {
 		// Configuring event listeners.
 		final EventHandlingConfiguration eventHandlingModule =  new EventHandlingConfiguration();
 		eventHandlingModule.registerEventHandler(config -> new ProductEventHandler());
+		// others event handlers.
+
 		eventHandlingModule.registerEventProcessor("default", (config, name, eh) -> new SubscribingEventProcessor(name,
 		        new SimpleEventHandlerInvoker(eh, PropagatingErrorHandler.INSTANCE), this.eventStore));
 		eventHandlingModule.assignHandlersMatching("default", (criteria) -> true);
-		// others event handlers.
 
 		configurer.registerModule(eventHandlingModule);
 		configurer.start();

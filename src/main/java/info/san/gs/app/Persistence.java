@@ -15,19 +15,12 @@ public final class Persistence {
 
 	private static final String DS_NAME = "jdbc/gs.app.db";
 
-	private static final class Holder {
-		private static final Persistence INSTANCE = new Persistence();
-	}
-
-	public static final Persistence getInstance() {
-		return Holder.INSTANCE;
-	}
-
-	private Persistence() {
-		// Nothing.
-	}
-
-	public DataSource getDataSource() {
+	/**
+	 * Get the application datasource for database connexion.
+	 *
+	 * @return a SQL datasource.
+	 */
+	public static DataSource getDataSource() {
 	    try {
 			final Context ctx = new InitialContext();
 			return (DataSource) ctx.lookup("java:comp/env/" + DS_NAME);

@@ -11,8 +11,9 @@ import javax.ws.rs.core.Application;
 
 import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 
+import info.san.gs.app.rest.exceptions.mapper.JsonParseExceptionMapper;
 import info.san.gs.app.rest.exceptions.mapper.ObjectNotFoundExceptionMapper;
-import info.san.gs.app.rest.webservices.ProductWebservices;
+import info.san.gs.app.rest.webservices.ProductWebservicesImpl;
 
 /**
  * Rest application / webservices binding.
@@ -27,7 +28,7 @@ public class RestApplication extends Application {
 	public Set<Class<?>> getClasses() {
 		final Set<Class<?>> classes = new HashSet<>();
 
-		classes.add(ProductWebservices.class);
+		classes.add(ProductWebservicesImpl.class);
 
 		return classes;
 	}
@@ -38,6 +39,7 @@ public class RestApplication extends Application {
 
 		singletons.add(new JacksonJsonProvider());
 		singletons.add(new ObjectNotFoundExceptionMapper());
+		singletons.add(new JsonParseExceptionMapper());
 
 		return singletons;
 	}

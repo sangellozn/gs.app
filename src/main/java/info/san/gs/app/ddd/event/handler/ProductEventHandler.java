@@ -6,6 +6,7 @@ import org.jdbi.v3.core.locator.ClasspathSqlLocator;
 import info.san.gs.app.JdbiConnector;
 import info.san.gs.app.ddd.event.product.ProductCreatedEvent;
 import info.san.gs.app.ddd.event.product.ProductDeletedEvent;
+import info.san.gs.app.ddd.event.product.ProductUpdatedEvent;
 
 /**
  * Event handler for product entry related events.
@@ -29,6 +30,15 @@ public final class ProductEventHandler {
 		JdbiConnector.getJdbi().withHandle(h ->
 				h.createUpdate(ClasspathSqlLocator.findSqlOnClasspath("info.san.gs.app.query.product.delete"))
 				.bind("id", evt.getId())
+				.execute()
+		);
+	}
+
+	@EventHandler
+	public void on(final ProductUpdatedEvent evt) {
+		JdbiConnector.getJdbi().withHandle(h ->
+				h.createUpdate(ClasspathSqlLocator.findSqlOnClasspath("info.san.gs.app.query.product.update"))
+				.bindBean(evt)
 				.execute()
 		);
 	}

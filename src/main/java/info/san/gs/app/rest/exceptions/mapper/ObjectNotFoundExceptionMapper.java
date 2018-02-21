@@ -18,7 +18,7 @@ public class ObjectNotFoundExceptionMapper implements ExceptionMapper<ObjectNotF
 
 	@Override
 	public Response toResponse(final ObjectNotFoundException exception) {
-		return Response.status(Status.NOT_FOUND).entity(new ErrorDto("404", exception.getMessage())).build();
+		return Response.status(Status.NOT_FOUND).entity(new ErrorDto(Status.NOT_FOUND.getStatusCode(), exception.getMessage())).build();
 	}
 
 }

@@ -10,10 +10,14 @@ import org.axonframework.eventsourcing.EventSourcingHandler;
 
 import info.san.gs.app.ddd.command.product.ProductCreateCommand;
 import info.san.gs.app.ddd.command.product.ProductDeleteCommand;
+import info.san.gs.app.ddd.command.product.ProductUpdateCommand;
 import info.san.gs.app.ddd.event.product.ProductCreatedEvent;
 import info.san.gs.app.ddd.event.product.ProductDeletedEvent;
+import info.san.gs.app.ddd.event.product.ProductUpdatedEvent;
 
 /**
+ * Product aggregate.
+ *
  * @author sangelloz-nicoud
  *
  */
@@ -26,14 +30,34 @@ public class ProductAggregate {
 		// Nothing.
 	}
 
+	/**
+	 * Handle the create command.
+	 *
+	 * @param cmd the create command.
+	 */
 	@CommandHandler
 	public ProductAggregate(final ProductCreateCommand cmd) {
 		AggregateLifecycle.apply(new ProductCreatedEvent(cmd));
 	}
 
+	/**
+	 * Handle the delete command.
+	 *
+	 * @param cmd the delete command.
+	 */
 	@CommandHandler
 	public void delete(final ProductDeleteCommand cmd) {
 		AggregateLifecycle.apply(new ProductDeletedEvent(cmd.getId()));
+	}
+
+	/**
+	 * Handle the update command.
+	 *
+	 * @param cmd the update command.
+	 */
+	@CommandHandler
+	public void update(final ProductUpdateCommand cmd) {
+		AggregateLifecycle.apply(new ProductUpdatedEvent(cmd));
 	}
 
 	@EventSourcingHandler

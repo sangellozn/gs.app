@@ -8,11 +8,17 @@ package info.san.gs.app.rest.dto;
  */
 public final class ErrorDto {
 
-	private String code;
+	private int code;
 
 	private String message;
 
-	public ErrorDto(final String code, final String message) {
+	/**
+	 * Default constructor.
+	 *
+	 * @param code the status code.
+	 * @param message the error message.
+	 */
+	public ErrorDto(final int code, final String message) {
 		super();
 		this.code = code;
 		this.message = message;
@@ -21,14 +27,14 @@ public final class ErrorDto {
 	/**
 	 * @return the code
 	 */
-	public String getCode() {
+	public int getCode() {
 		return code;
 	}
 
 	/**
 	 * @param code the code to set
 	 */
-	public void setCode(final String code) {
+	public void setCode(final int code) {
 		this.code = code;
 	}
 
