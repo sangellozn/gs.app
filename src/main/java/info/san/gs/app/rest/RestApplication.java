@@ -11,8 +11,10 @@ import javax.ws.rs.core.Application;
 
 import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 
+import info.san.gs.app.rest.exceptions.mapper.InvalidStockQtyExceptionMapper;
 import info.san.gs.app.rest.exceptions.mapper.JsonParseExceptionMapper;
 import info.san.gs.app.rest.exceptions.mapper.ObjectNotFoundExceptionMapper;
+import info.san.gs.app.rest.exceptions.mapper.ValidationExceptionMapper;
 import info.san.gs.app.rest.webservices.ProductWebservicesImpl;
 
 /**
@@ -40,6 +42,8 @@ public class RestApplication extends Application {
 		singletons.add(new JacksonJsonProvider());
 		singletons.add(new ObjectNotFoundExceptionMapper());
 		singletons.add(new JsonParseExceptionMapper());
+		singletons.add(new ValidationExceptionMapper());
+		singletons.add(new InvalidStockQtyExceptionMapper());
 
 		return singletons;
 	}

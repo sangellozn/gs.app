@@ -5,6 +5,10 @@ package info.san.gs.app.rest.dto.product;
 
 import java.math.BigDecimal;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.PositiveOrZero;
+
 import info.san.gs.app.rest.dto.AbstractDto;
 
 /**
@@ -15,16 +19,23 @@ import info.san.gs.app.rest.dto.AbstractDto;
  */
 public class ProductDto extends AbstractDto {
 
+	@NotBlank(message = "must be not blank")
 	private String name;
 
+	@NotBlank(message = "must be not blank")
 	private String description;
 
+	@NotBlank(message = "must be not blank")
+	@Pattern(regexp = "[0-9]{13}", message = "must be a 13 digits string")
 	private String ean13;
 
+	@PositiveOrZero(message = "must be positive or zero")
 	private BigDecimal stockQty;
 
+	@PositiveOrZero(message = "must be positive or zero")
 	private BigDecimal minStockQty;
 
+	@PositiveOrZero(message = "must be positive or zero")
 	private BigDecimal targetStockQty;
 
 	/**

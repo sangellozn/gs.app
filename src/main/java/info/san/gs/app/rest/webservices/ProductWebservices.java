@@ -5,6 +5,7 @@ package info.san.gs.app.rest.webservices;
 
 import java.math.BigDecimal;
 
+import info.san.gs.app.rest.dto.SimpleValueDto;
 import info.san.gs.app.rest.dto.product.ProductDto;
 import info.san.gs.app.rest.dto.product.ProductPageDto;
 
@@ -14,8 +15,12 @@ import info.san.gs.app.rest.dto.product.ProductPageDto;
  */
 public interface ProductWebservices extends Webservices<ProductDto, ProductPageDto> {
 
-	void stockRemove(String id, BigDecimal qty);
-
-	void stockAdd(String id, BigDecimal qty);
+	/**
+	 * Remove from the stock the amount qantity for a product.
+	 *
+	 * @param id the product identifier.
+	 * @param qty the quantity to remove.
+	 */
+	void stockRemove(String id, SimpleValueDto<BigDecimal> qty);
 
 }

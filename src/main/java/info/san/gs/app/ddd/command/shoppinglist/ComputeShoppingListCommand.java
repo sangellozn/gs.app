@@ -11,4 +11,6 @@ package info.san.gs.app.ddd.command.shoppinglist;
  */
 public class ComputeShoppingListCommand {
 
+	// Nothing.
+
 }

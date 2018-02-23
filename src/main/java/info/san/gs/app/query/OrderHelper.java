@@ -11,6 +11,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import com.google.common.base.CaseFormat;
 
@@ -41,6 +42,14 @@ public final class OrderHelper {
 	 */
 	public static final String ORDER_BY_PLACEHOLDER = "__ORDER_BY__";
 
+	/**
+	 * Parse the order instruction, controling allowed field.
+	 *
+	 * @param rawOrder the raw order instruction (field,-field,...).
+	 * @param clazz the type to verify order fields.
+	 *
+	 * @return the computed order by clause for SQL.
+	 */
 	public static String parseOrder(final String rawOrder, final Class<? extends Entry> clazz) {
 		if (rawOrder != null && !rawOrder.isEmpty()) {
 			final StringBuilder sb = new StringBuilder(" ORDER BY ");
@@ -73,13 +82,24 @@ public final class OrderHelper {
 			return sb.toString();
 		}
 
-		return null;
+		return "";
 
 	}
 
 	protected static Set<String> getAllowedSortFieldSet(final Class<? extends Entry> clazz) {
+		final Set<String> result = new HashSet<>();
 
-		return null; //FIXME
+		getAllowedSortFieldSet(result, clazz);
+
+		return result;
+	}
+
+	private static void getAllowedSortFieldSet(final Set<String> appendResult, final Class<?> clazz) {
+		appendResult.addAll(Arrays.stream(clazz.getDeclaredFields()).map(field -> field.getName()).collect(Collectors.toSet()));
+
+		if (clazz.getSuperclass() != null) {
+			getAllowedSortFieldSet(appendResult, clazz.getSuperclass());
+		}
 
 	}
 

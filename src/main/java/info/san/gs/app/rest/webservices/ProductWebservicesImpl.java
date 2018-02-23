@@ -19,10 +19,13 @@ import javax.ws.rs.core.Response;
 
 import info.san.gs.app.ddd.command.product.ProductCreateCommand;
 import info.san.gs.app.ddd.command.product.ProductDeleteCommand;
+import info.san.gs.app.ddd.command.product.ProductStockRemoveCommand;
 import info.san.gs.app.ddd.command.product.ProductUpdateCommand;
 import info.san.gs.app.model.ProductEntry;
 import info.san.gs.app.query.product.ProductQueryRepository;
 import info.san.gs.app.query.product.ProductQueryRepositoryImpl;
+import info.san.gs.app.rest.dto.DtoValidatorHelper;
+import info.san.gs.app.rest.dto.SimpleValueDto;
 import info.san.gs.app.rest.dto.mapper.ProductMapper;
 import info.san.gs.app.rest.dto.product.ProductDto;
 import info.san.gs.app.rest.dto.product.ProductPageDto;
@@ -62,6 +65,7 @@ public class ProductWebservicesImpl extends AbstractWebservices implements Produ
 	@POST
 	@Override
 	public Response create(final ProductDto obj) {
+		DtoValidatorHelper.validate(obj);
 		final ProductCreateCommand cmd = new ProductCreateCommand.Builder().fromDto(obj);
 		this.getCommandGateway().sendAndWait(cmd);
 		return Response.created(URI.create("products/" + cmd.getId())).build();
@@ -71,6 +75,7 @@ public class ProductWebservicesImpl extends AbstractWebservices implements Produ
 	@Path("{id}")
 	@Override
 	public void update(@PathParam("id") final String id, final ProductDto obj) {
+		DtoValidatorHelper.validate(obj);
 		final ProductUpdateCommand cmd = new ProductUpdateCommand.Builder(id).fromDto(obj);
 		this.getCommandGateway().sendAndWait(cmd);
 	}
@@ -93,17 +98,9 @@ public class ProductWebservicesImpl extends AbstractWebservices implements Produ
 	@PUT
 	@Path("{id}/stockremove")
 	@Override
-	public void stockRemove(@PathParam("id") final String id, final BigDecimal qty) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@PUT
-	@Path("{id}/stockadd")
-	@Override
-	public void stockAdd(@PathParam("id") final String id, final BigDecimal qty) {
-		// TODO Auto-generated method stub
-
+	public void stockRemove(@PathParam("id") final String id, final SimpleValueDto<BigDecimal> qty) {
+		final ProductStockRemoveCommand cmd = new ProductStockRemoveCommand(id, qty.getValue());
+		this.getCommandGateway().sendAndWait(cmd);
 	}
 
 }

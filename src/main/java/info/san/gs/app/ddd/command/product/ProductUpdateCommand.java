@@ -2,26 +2,15 @@ package info.san.gs.app.ddd.command.product;
 
 import java.math.BigDecimal;
 
-import org.axonframework.commandhandling.TargetAggregateIdentifier;
-
 import info.san.gs.app.rest.dto.product.ProductDto;
 
-public class ProductUpdateCommand {
-
-	@TargetAggregateIdentifier
-	private final String id;
-
-	private final String name;
-
-	private final String description;
-
-	private final String ean13;
-
-	private final BigDecimal stockQty;
-
-	private final BigDecimal minStockQty;
-
-	private final BigDecimal targetStockQty;
+/**
+ * Command that update a product.
+ *
+ * @author sangelloz-nicoud
+ *
+ */
+public class ProductUpdateCommand extends AbstractWriteProductCommand {
 
 	private ProductUpdateCommand(final Builder builder) {
 		this.id = builder.id;
@@ -33,6 +22,12 @@ public class ProductUpdateCommand {
 		this.targetStockQty = builder.targetStockQty;
 	}
 
+	/**
+	 * Builder for the command.
+	 *
+	 * @author sangelloz-nicoud
+	 *
+	 */
 	public static final class Builder {
 
 		private final String id;
@@ -98,55 +93,6 @@ public class ProductUpdateCommand {
 			return this.build();
 		}
 
-	}
-
-	/**
-	 * @return the id
-	 */
-	public String getId() {
-		return id;
-	}
-
-	/**
-	 * @return the name
-	 */
-	public String getName() {
-		return name;
-	}
-
-	/**
-	 * @return the description
-	 */
-	public String getDescription() {
-		return description;
-	}
-
-	/**
-	 * @return the ean13
-	 */
-	public String getEan13() {
-		return ean13;
-	}
-
-	/**
-	 * @return the stockQty
-	 */
-	public BigDecimal getStockQty() {
-		return stockQty;
-	}
-
-	/**
-	 * @return the minStockQty
-	 */
-	public BigDecimal getMinStockQty() {
-		return minStockQty;
-	}
-
-	/**
-	 * @return the targetStockQty
-	 */
-	public BigDecimal getTargetStockQty() {
-		return targetStockQty;
 	}
 
 }

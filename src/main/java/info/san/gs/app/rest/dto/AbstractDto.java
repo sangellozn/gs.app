@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * @author sangelloz-nicoud
  *
  */
-public abstract class AbstractDto {
+public abstract class AbstractDto implements Dto {
 
 	private String id;
 

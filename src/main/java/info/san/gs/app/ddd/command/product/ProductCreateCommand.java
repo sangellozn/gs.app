@@ -3,8 +3,6 @@ package info.san.gs.app.ddd.command.product;
 import java.math.BigDecimal;
 import java.util.UUID;
 
-import org.axonframework.commandhandling.TargetAggregateIdentifier;
-
 import info.san.gs.app.rest.dto.product.ProductDto;
 
 /**
@@ -12,22 +10,7 @@ import info.san.gs.app.rest.dto.product.ProductDto;
  *
  * @author sangelloz-nicoud
  */
-public class ProductCreateCommand {
-
-	@TargetAggregateIdentifier
-	private final String id;
-
-	private final String name;
-
-	private final String description;
-
-	private final String ean13;
-
-	private final BigDecimal stockQty;
-
-	private final BigDecimal minStockQty;
-
-	private final BigDecimal targetStockQty;
+public class ProductCreateCommand extends AbstractWriteProductCommand {
 
 	private ProductCreateCommand(final Builder builder) {
 		this.id = UUID.randomUUID().toString();
@@ -40,54 +23,11 @@ public class ProductCreateCommand {
 	}
 
 	/**
-	 * @return the id
+	 * Builder for the command.
+	 *
+	 * @author sangelloz-nicoud
+	 *
 	 */
-	public String getId() {
-		return id;
-	}
-
-	/**
-	 * @return the name
-	 */
-	public String getName() {
-		return name;
-	}
-
-	/**
-	 * @return the description
-	 */
-	public String getDescription() {
-		return description;
-	}
-
-	/**
-	 * @return the ean13
-	 */
-	public String getEan13() {
-		return ean13;
-	}
-
-	/**
-	 * @return the stockQty
-	 */
-	public BigDecimal getStockQty() {
-		return stockQty;
-	}
-
-	/**
-	 * @return the minStockQty
-	 */
-	public BigDecimal getMinStockQty() {
-		return minStockQty;
-	}
-
-	/**
-	 * @return the targetStockQty
-	 */
-	public BigDecimal getTargetStockQty() {
-		return targetStockQty;
-	}
-
 	public static final class Builder {
 
 		private String name;
@@ -102,40 +42,94 @@ public class ProductCreateCommand {
 
 		private BigDecimal targetStockQty;
 
+		/**
+		 * Assign name.
+		 *
+		 * @param name the name.
+		 *
+		 * @return the builder.
+		 */
 		public Builder withName(final String name) {
 			this.name = name;
 			return this;
 		}
 
+		/**
+		 * Assign description.
+		 *
+		 * @param description the description.
+		 *
+		 * @return the builder.
+		 */
 		public Builder withDescription(final String description) {
 			this.description = description;
 			return this;
 		}
 
+		/**
+		 * Assign ean 13.
+		 *
+		 * @param ean13 the ean 13.
+		 *
+		 * @return the builder.
+		 */
 		public Builder withEan13(final String ean13) {
 			this.ean13 = ean13;
 			return this;
 		}
 
+		/**
+		 * Assign the current stock qty.
+		 *
+		 * @param stockQty the stock qty.
+		 *
+		 * @return the builder.
+		 */
 		public Builder withStockQty(final BigDecimal stockQty) {
 			this.stockQty = stockQty;
 			return this;
 		}
 
+		/**
+		 * Assign the minimum qantity that will place the item to the next shopping list.
+		 *
+		 * @param minStockQty minimum quantity (inclusive value).
+		 *
+		 * @return the builder.
+		 */
 		public Builder withMinStockQty(final BigDecimal minStockQty) {
 			this.minStockQty = minStockQty;
 			return this;
 		}
 
+		/**
+		 * Assign the target stock qty.
+		 *
+		 * @param targetStockQty the targeted quantity in stock.
+		 *
+		 * @return the builder.
+		 */
 		public Builder withTargetStockQty(final BigDecimal targetStockQty) {
 			this.targetStockQty = targetStockQty;
 			return this;
 		}
 
+		/**
+		 * Build the product command.
+		 *
+		 * @return the new product command.
+		 */
 		public ProductCreateCommand build() {
 			return new ProductCreateCommand(this);
 		}
 
+		/**
+		 * Create a command from a product dto.
+		 *
+		 * @param dto the init dto.
+		 *
+		 * @return the corresponding product command.
+		 */
 		public ProductCreateCommand fromDto(final ProductDto dto) {
 			this.description = dto.getDescription();
 			this.ean13 = dto.getEan13();

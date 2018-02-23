@@ -35,6 +35,11 @@ public class ProductCreatedEvent {
 		// Nothing.
 	}
 
+	/**
+	 * Default constructor.
+	 *
+	 * @param cmd the command the event is built from.
+	 */
 	public ProductCreatedEvent(final ProductCreateCommand cmd) {
 		this.id = cmd.getId();
 		this.name = cmd.getName();
