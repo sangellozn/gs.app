@@ -1,5 +1,5 @@
 /**
- * 
+ * Package for global DTOs.
  */
 /**
  * @author sangelloz-nicoud

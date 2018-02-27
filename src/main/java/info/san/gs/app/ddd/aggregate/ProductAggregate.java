@@ -3,6 +3,7 @@
  */
 package info.san.gs.app.ddd.aggregate;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 import org.axonframework.commandhandling.CommandHandler;
@@ -27,7 +28,9 @@ import info.san.gs.app.exceptions.InvalidStockQtyException;
  * @author sangelloz-nicoud
  *
  */
-public class ProductAggregate {
+public class ProductAggregate implements Serializable {
+
+	private static final long serialVersionUID = -1338844177063408265L;
 
 	@AggregateIdentifier
 	private String id;

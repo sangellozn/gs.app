@@ -5,12 +5,15 @@ package info.san.gs.app.ddd.event.product;
 
 import java.math.BigDecimal;
 
+import org.axonframework.serialization.Revision;
+
 /**
  * Event when stock qantity is remove to a product.
  *
  * @author sangelloz-nicoud
  *
  */
+@Revision("1.0")
 public class ProductStockRemoveEvent {
 
 	private final String id;

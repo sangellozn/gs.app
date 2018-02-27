@@ -8,6 +8,7 @@ import java.math.BigDecimal;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.PositiveOrZero;
+import javax.validation.constraints.Size;
 
 import info.san.gs.app.rest.dto.AbstractDto;
 
@@ -20,9 +21,11 @@ import info.san.gs.app.rest.dto.AbstractDto;
 public class ProductDto extends AbstractDto {
 
 	@NotBlank(message = "must be not blank")
+	@Size(max = 100, message = "must be less than 100 characters")
 	private String name;
 
 	@NotBlank(message = "must be not blank")
+	@Size(max = 255, message = "must be less than 255 characters")
 	private String description;
 
 	@NotBlank(message = "must be not blank")

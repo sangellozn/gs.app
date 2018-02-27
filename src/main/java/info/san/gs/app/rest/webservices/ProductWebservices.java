@@ -10,6 +10,8 @@ import info.san.gs.app.rest.dto.product.ProductDto;
 import info.san.gs.app.rest.dto.product.ProductPageDto;
 
 /**
+ * Webservices related to product entity.
+ *
  * @author sangelloz-nicoud
  *
  */

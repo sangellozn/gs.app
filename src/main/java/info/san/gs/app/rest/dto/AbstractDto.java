@@ -95,8 +95,13 @@ public abstract class AbstractDto implements Dto {
         this.deleted = deleted;
     }
 
+    /**
+     * Get an URI relative to the resource itself.
+     *
+     * @return the
+     */
     @JsonProperty("_self")
-	public String getSelf() {
+	public final String getSelf() {
 		return this.getPath() + "/" + this.getId();
 	}
 

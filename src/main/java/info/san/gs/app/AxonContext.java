@@ -21,6 +21,7 @@ import org.axonframework.eventsourcing.eventstore.EventStore;
 import org.axonframework.eventsourcing.eventstore.jdbc.JdbcEventStorageEngine;
 
 import info.san.gs.app.ddd.aggregate.ProductAggregate;
+import info.san.gs.app.ddd.aggregate.ShoppingListAggregate;
 import info.san.gs.app.ddd.command.handler.ProductCommandHandler;
 import info.san.gs.app.ddd.event.handler.ProductEventHandler;
 
@@ -57,6 +58,7 @@ public final class AxonContext {
 
 		// Registering aggregates
 		configurer.configureAggregate(ProductAggregate.class);
+		configurer.configureAggregate(ShoppingListAggregate.class);
 		// others aggregates.
 
 		// Registering command handlers.

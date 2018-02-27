@@ -1,8 +1,8 @@
 package info.san.gs.app.ddd.command.shoppinglist;
 
-public class CloseShoppingListCommand {
+public class ShoppingListCloseCommand {
 
-	public CloseShoppingListCommand() {
+	public ShoppingListCloseCommand() {
 		// TODO Auto-generated constructor stub
 	}
 
