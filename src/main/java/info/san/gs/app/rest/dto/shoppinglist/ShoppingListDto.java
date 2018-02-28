@@ -22,7 +22,7 @@ public class ShoppingListDto extends AbstractDto {
 
 	@Override
 	protected String getPath() {
-		return "shoppinglist";
+		return "shoppinglists/current";
 	}
 
 	/**

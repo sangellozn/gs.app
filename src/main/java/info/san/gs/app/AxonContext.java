@@ -23,7 +23,9 @@ import org.axonframework.eventsourcing.eventstore.jdbc.JdbcEventStorageEngine;
 import info.san.gs.app.ddd.aggregate.ProductAggregate;
 import info.san.gs.app.ddd.aggregate.ShoppingListAggregate;
 import info.san.gs.app.ddd.command.handler.ProductCommandHandler;
+import info.san.gs.app.ddd.command.handler.ShoppingListCommandHandler;
 import info.san.gs.app.ddd.event.handler.ProductEventHandler;
+import info.san.gs.app.ddd.event.handler.ShoppingListEventHandler;
 
 /**
  * Classe de context pour AxonFramework.
@@ -63,11 +65,13 @@ public final class AxonContext {
 
 		// Registering command handlers.
 		configurer.registerCommandHandler(config -> new ProductCommandHandler());
+		configurer.registerCommandHandler(config -> new ShoppingListCommandHandler());
 		// others command handlers.
 
 		// Configuring event listeners.
 		final EventHandlingConfiguration eventHandlingModule =  new EventHandlingConfiguration();
 		eventHandlingModule.registerEventHandler(config -> new ProductEventHandler());
+		eventHandlingModule.registerEventHandler(config -> new ShoppingListEventHandler());
 		// others event handlers.
 
 		eventHandlingModule.registerEventProcessor("default", (config, name, eh) -> new SubscribingEventProcessor(name,

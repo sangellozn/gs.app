@@ -3,7 +3,10 @@
  */
 package info.san.gs.app.query.product;
 
+import java.math.BigDecimal;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.jdbi.v3.core.locator.ClasspathSqlLocator;
@@ -23,9 +26,9 @@ public class ProductQueryRepositoryImpl implements ProductQueryRepository {
 	public ProductEntry get(final String id) {
 		return JdbiConnector.getJdbi().withHandle(h ->
 				h.createQuery(ClasspathSqlLocator.findSqlOnClasspath("info.san.gs.app.query.product.get"))
-					.bind("id", id)
-					.mapTo(ProductEntry.class)
-					.findFirst()
+						.bind("id", id)
+						.mapTo(ProductEntry.class)
+						.findFirst()
 		).orElseThrow(() -> new ObjectNotFoundException(ProductEntry.class, id));
 	}
 
@@ -44,10 +47,10 @@ public class ProductQueryRepositoryImpl implements ProductQueryRepository {
 
 		return JdbiConnector.getJdbi().withHandle(h ->
 				h.createQuery(finalSqlQuery)
-					.bind("count", limit)
-					.bind("offset", limit * page)
-					.mapTo(ProductEntry.class)
-					.collect(Collectors.toList())
+						.bind("count", limit)
+						.bind("offset", limit * page)
+						.mapTo(ProductEntry.class)
+						.collect(Collectors.toList())
 		);
 	}
 
@@ -55,8 +58,19 @@ public class ProductQueryRepositoryImpl implements ProductQueryRepository {
 	public long count() {
 		return JdbiConnector.getJdbi().withHandle(h ->
 				h.createQuery(ClasspathSqlLocator.findSqlOnClasspath("info.san.gs.app.query.product.count"))
-					.mapTo(Long.class)
-					.findOnly()
+						.mapTo(Long.class)
+						.findOnly()
+		);
+	}
+
+	@Override
+	public Map<String, BigDecimal> getProductQtyToOrder() {
+		return JdbiConnector.getJdbi().withHandle(h ->
+				h.createQuery(ClasspathSqlLocator.findSqlOnClasspath("info.san.gs.app.query.product.getProductQtyToOrder"))
+						.reduceRows(new HashMap<>(), (acc, rowView) -> {
+								acc.put(rowView.getColumn("id", String.class), rowView.getColumn("qty", BigDecimal.class));
+								return acc;
+						})
 		);
 	}
 

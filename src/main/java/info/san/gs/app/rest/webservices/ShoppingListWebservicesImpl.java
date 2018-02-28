@@ -11,15 +11,20 @@ import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
 
 import info.san.gs.app.ddd.command.shoppinglist.ShoppingListCreateCommand;
+import info.san.gs.app.query.product.ShoppingListQueryRepository;
+import info.san.gs.app.query.product.ShoppingListQueryRepositoryImpl;
 import info.san.gs.app.rest.dto.SimpleValueDto;
+import info.san.gs.app.rest.dto.mapper.ShoppingListMapper;
 import info.san.gs.app.rest.dto.shoppinglist.ShoppingListDto;
 
 /**
  * @author sangelloz-nicoud
  *
  */
-@Path("shoppinglist")
+@Path("shoppinglists")
 public class ShoppingListWebservicesImpl extends AbstractWebservices implements ShoppingListWebservices {
+
+	private final ShoppingListQueryRepository shoppingListQueryRepository = new ShoppingListQueryRepositoryImpl();
 
 	@POST
 	@Path("create")
@@ -27,7 +32,7 @@ public class ShoppingListWebservicesImpl extends AbstractWebservices implements 
 	public Response computeShoppingList(final SimpleValueDto<String> comment) {
 		final ShoppingListCreateCommand cmd = new ShoppingListCreateCommand(comment.getValue());
 		this.getCommandGateway().sendAndWait(cmd);
-		return Response.created(URI.create("shoppinglist/current")).build();
+		return Response.created(URI.create("shoppinglists/current")).build();
 	}
 
 	@POST
@@ -42,8 +47,7 @@ public class ShoppingListWebservicesImpl extends AbstractWebservices implements 
 	@Path("current")
 	@Override
 	public ShoppingListDto getCurrent() {
-		// TODO Auto-generated method stub
-		return null;
+		return ShoppingListMapper.INSTANCE.shoppingListEntryToShoppingListDto(shoppingListQueryRepository.getCurrent().orElse(null));
 	}
 
 }

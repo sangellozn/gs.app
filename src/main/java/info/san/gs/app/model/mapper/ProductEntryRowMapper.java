@@ -17,9 +17,6 @@ import info.san.gs.app.model.ProductEntry;
  */
 public class ProductEntryRowMapper implements RowMapper<ProductEntry> {
 
-	/* (non-Javadoc)
-	 * @see org.jdbi.v3.core.mapper.RowMapper#map(java.sql.ResultSet, org.jdbi.v3.core.statement.StatementContext)
-	 */
 	@Override
 	public ProductEntry map(final ResultSet rs, final StatementContext ctx) throws SQLException {
 		final ProductEntry result = new ProductEntry();

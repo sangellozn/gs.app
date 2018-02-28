@@ -17,6 +17,10 @@ public class ShoppingListItemEntry extends AbstractEntry {
 
 	private BigDecimal qty;
 
+	private ProductEntry product;
+
+	private ShoppingListEntry shoppingList;
+
 	/**
 	 * @return the productId
 	 */
@@ -57,6 +61,34 @@ public class ShoppingListItemEntry extends AbstractEntry {
 	 */
 	public void setQty(final BigDecimal qty) {
 		this.qty = qty;
+	}
+
+	/**
+	 * @return the product
+	 */
+	public ProductEntry getProduct() {
+		return product;
+	}
+
+	/**
+	 * @param product the product to set
+	 */
+	public void setProduct(final ProductEntry product) {
+		this.product = product;
+	}
+
+	/**
+	 * @return the shoppingList
+	 */
+	public ShoppingListEntry getShoppingList() {
+		return shoppingList;
+	}
+
+	/**
+	 * @param shoppingList the shoppingList to set
+	 */
+	public void setShoppingList(final ShoppingListEntry shoppingList) {
+		this.shoppingList = shoppingList;
 	}
 
 }
