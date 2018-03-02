@@ -4,16 +4,19 @@ import org.axonframework.commandhandling.model.AggregateIdentifier;
 import org.axonframework.commandhandling.model.AggregateLifecycle;
 import org.axonframework.eventsourcing.EventSourcingHandler;
 
+import info.san.gs.app.ddd.event.shoppinglist.ShoppingListClosedEvent;
 import info.san.gs.app.ddd.event.shoppinglist.ShoppingListCreatedEvent;
 import info.san.gs.app.model.ShoppingListEntry;
-import info.san.gs.app.model.ShoppingListStateEnum;
 
+/**
+ *
+ * @author sangelloz-nicoud
+ *
+ */
 public class ShoppingListAggregate {
 
 	@AggregateIdentifier
 	private String id;
-
-	private ShoppingListStateEnum state;
 
 	protected ShoppingListAggregate() {
 		// Nothing.
@@ -23,10 +26,18 @@ public class ShoppingListAggregate {
 		AggregateLifecycle.apply(new ShoppingListCreatedEvent(shoppingListEntry));
 	}
 
+	public void close() {
+		AggregateLifecycle.apply(new ShoppingListClosedEvent(this.id));
+	}
+
 	@EventSourcingHandler
-	public void on(final ShoppingListCreatedEvent evt) {
+	protected void on(final ShoppingListCreatedEvent evt) {
 		this.id = evt.getShoppingListEntry().getId();
-		this.state = ShoppingListStateEnum.OPENED;
+	}
+
+	@EventSourcingHandler
+	protected void on(final ShoppingListClosedEvent evt) {
+		AggregateLifecycle.markDeleted();
 	}
 
 }

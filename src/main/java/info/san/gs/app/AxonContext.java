@@ -15,6 +15,7 @@ import org.axonframework.config.EventHandlingConfiguration;
 import org.axonframework.eventhandling.PropagatingErrorHandler;
 import org.axonframework.eventhandling.SimpleEventHandlerInvoker;
 import org.axonframework.eventhandling.SubscribingEventProcessor;
+import org.axonframework.eventsourcing.EventSourcingRepository;
 import org.axonframework.eventsourcing.eventstore.EmbeddedEventStore;
 import org.axonframework.eventsourcing.eventstore.EventStorageEngine;
 import org.axonframework.eventsourcing.eventstore.EventStore;
@@ -65,7 +66,7 @@ public final class AxonContext {
 
 		// Registering command handlers.
 		configurer.registerCommandHandler(config -> new ProductCommandHandler());
-		configurer.registerCommandHandler(config -> new ShoppingListCommandHandler());
+		configurer.registerCommandHandler(config -> new ShoppingListCommandHandler(new EventSourcingRepository<>(ShoppingListAggregate.class, this.eventStore)));
 		// others command handlers.
 
 		// Configuring event listeners.

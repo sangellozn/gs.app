@@ -7,28 +7,28 @@ package info.san.gs.app.exceptions;
  * @author sangelloz-nicoud
  *
  */
-public class ShoppingListAlreadyOpenedException extends RuntimeException {
+public class ShoppingListStateException extends RuntimeException {
 
 	private static final long serialVersionUID = 2767417562529260996L;
 
 	/**
 	 *
 	 */
-	public ShoppingListAlreadyOpenedException() {
+	public ShoppingListStateException() {
 		super();
 	}
 
 	/**
 	 * @param message
 	 */
-	public ShoppingListAlreadyOpenedException(final String message) {
+	public ShoppingListStateException(final String message) {
 		super(message);
 	}
 
 	/**
 	 * @param cause
 	 */
-	public ShoppingListAlreadyOpenedException(final Throwable cause) {
+	public ShoppingListStateException(final Throwable cause) {
 		super(cause);
 	}
 
@@ -36,7 +36,7 @@ public class ShoppingListAlreadyOpenedException extends RuntimeException {
 	 * @param message
 	 * @param cause
 	 */
-	public ShoppingListAlreadyOpenedException(final String message, final Throwable cause) {
+	public ShoppingListStateException(final String message, final Throwable cause) {
 		super(message, cause);
 	}
 
@@ -46,7 +46,7 @@ public class ShoppingListAlreadyOpenedException extends RuntimeException {
 	 * @param enableSuppression
 	 * @param writableStackTrace
 	 */
-	public ShoppingListAlreadyOpenedException(final String message, final Throwable cause, final boolean enableSuppression,
+	public ShoppingListStateException(final String message, final Throwable cause, final boolean enableSuppression,
 			final boolean writableStackTrace) {
 		super(message, cause, enableSuppression, writableStackTrace);
 	}

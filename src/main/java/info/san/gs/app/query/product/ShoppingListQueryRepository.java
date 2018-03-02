@@ -26,4 +26,11 @@ public interface ShoppingListQueryRepository {
 	 */
 	boolean isOpenedExist();
 
+	/**
+	 * Get the current shopping list identifier (if any).
+	 *
+	 * @return the current shopping list identifier or an empty optional if none.
+	 */
+	Optional<String> getCurrentId();
+
 }

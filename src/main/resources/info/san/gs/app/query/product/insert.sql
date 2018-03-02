@@ -1,5 +1,5 @@
 INSERT INTO product (
-	id
+	  id
 	, name
 	, description
 	, ean13
@@ -11,7 +11,7 @@ INSERT INTO product (
 	, version
 	, deleted
 ) VALUES (
-	:id
+	  :id
 	, :name
 	, :description
 	, :ean13

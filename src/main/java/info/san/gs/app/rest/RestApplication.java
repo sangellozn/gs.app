@@ -14,7 +14,7 @@ import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 import info.san.gs.app.rest.exceptions.mapper.InvalidStockQtyExceptionMapper;
 import info.san.gs.app.rest.exceptions.mapper.JsonParseExceptionMapper;
 import info.san.gs.app.rest.exceptions.mapper.ObjectNotFoundExceptionMapper;
-import info.san.gs.app.rest.exceptions.mapper.ShoppingListAlreadyOpenedExceptionMapper;
+import info.san.gs.app.rest.exceptions.mapper.ShoppingListStateExceptionMapper;
 import info.san.gs.app.rest.exceptions.mapper.ValidationExceptionMapper;
 import info.san.gs.app.rest.webservices.ProductWebservicesImpl;
 import info.san.gs.app.rest.webservices.ShoppingListWebservicesImpl;
@@ -47,7 +47,7 @@ public class RestApplication extends Application {
 		singletons.add(new JsonParseExceptionMapper());
 		singletons.add(new ValidationExceptionMapper());
 		singletons.add(new InvalidStockQtyExceptionMapper());
-		singletons.add(new ShoppingListAlreadyOpenedExceptionMapper());
+		singletons.add(new ShoppingListStateExceptionMapper());
 
 		return singletons;
 	}

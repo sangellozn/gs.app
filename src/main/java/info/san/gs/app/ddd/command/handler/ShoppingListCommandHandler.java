@@ -2,16 +2,17 @@ package info.san.gs.app.ddd.command.handler;
 
 import java.math.BigDecimal;
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.axonframework.commandhandling.CommandHandler;
-import org.axonframework.eventsourcing.EventSourcingRepository;
+import org.axonframework.commandhandling.model.Repository;
 
-import info.san.gs.app.AxonContext;
 import info.san.gs.app.ddd.aggregate.ShoppingListAggregate;
+import info.san.gs.app.ddd.command.shoppinglist.ShoppingListCloseCommand;
 import info.san.gs.app.ddd.command.shoppinglist.ShoppingListCreateCommand;
-import info.san.gs.app.exceptions.ShoppingListAlreadyOpenedException;
 import info.san.gs.app.exceptions.ShoppingListHasNoItemException;
+import info.san.gs.app.exceptions.ShoppingListStateException;
 import info.san.gs.app.model.ShoppingListEntry;
 import info.san.gs.app.model.ShoppingListItemEntry;
 import info.san.gs.app.query.product.ProductQueryRepository;
@@ -31,12 +32,16 @@ public class ShoppingListCommandHandler {
 
 	private final ProductQueryRepository productQueryRepository = new ProductQueryRepositoryImpl();
 
-	private final EventSourcingRepository<ShoppingListAggregate> repository = new EventSourcingRepository<>(ShoppingListAggregate.class, AxonContext.getInstance().getEventStore());
+	private final Repository<ShoppingListAggregate> repository;
+
+	public ShoppingListCommandHandler(final Repository<ShoppingListAggregate> repository) {
+		this.repository = repository;
+	}
 
 	@CommandHandler
 	public void handle(final ShoppingListCreateCommand cmd) throws Exception {
 		if (shoppingListQueryRepository.isOpenedExist()) {
-			throw new ShoppingListAlreadyOpenedException("A shopping list is already opened. Close the current one first.");
+			throw new ShoppingListStateException("A shopping list is already opened. Close the current one first.");
 		}
 
 		final Map<String, BigDecimal> toOrder = productQueryRepository.getProductQtyToOrder();
@@ -59,6 +64,18 @@ public class ShoppingListCommandHandler {
 		});
 
 		repository.newInstance(() -> new ShoppingListAggregate(slEntry));
+	}
+
+	@CommandHandler
+	public void handle(final ShoppingListCloseCommand cmd) {
+		final Optional<String> currentSlId = shoppingListQueryRepository.getCurrentId();
+
+		if (!currentSlId.isPresent()) {
+			throw new ShoppingListStateException("There no opened shopping list. Create one first.");
+		}
+
+		final ShoppingListAggregate agg = (ShoppingListAggregate) repository.load(currentSlId.get());
+		agg.close();
 	}
 
 }

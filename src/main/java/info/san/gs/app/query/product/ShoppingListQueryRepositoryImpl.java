@@ -48,4 +48,13 @@ public class ShoppingListQueryRepositoryImpl implements ShoppingListQueryReposit
 		);
 	}
 
+	@Override
+	public Optional<String> getCurrentId() {
+		return JdbiConnector.getJdbi().withHandle(h ->
+				h.createQuery(ClasspathSqlLocator.findSqlOnClasspath("info.san.gs.app.query.shoppinglist.getCurrentId"))
+						.mapTo(String.class)
+						.findFirst()
+		);
+	}
+
 }
