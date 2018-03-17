@@ -1,3 +1,11 @@
-<p>
-  current-shopping-list works!
-</p>
+<div class="container">
+  <div *ngIf="!currentShoppingList; else shoppingListBlock" class="alert alert-warning" role="alert">
+    <div class="row justify-content-center">
+      <div>Pas de liste de course en cours...</div>
+    </div>
+    <div class="row justify-content-center">
+      <button type="button" class="btn btn-light">Générer la prochaine liste</button>
+    </div>
+  </div>
+  <ng-template #shoppingListBlock>YOP MA LISTE</ng-template>
+</div>

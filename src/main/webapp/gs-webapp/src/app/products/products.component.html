@@ -1,0 +1,56 @@
+<div class="container">
+  <h3>Liste des produits</h3>
+  <table class="table" *ngIf="products; else noProduct">
+    <thead>
+      <tr>
+        <th>
+          <span title="EAN13">EAN13</span>
+        </th>
+        <th>
+          <span title="Nom du produit">Nom</span>
+        </th>
+
+        <th>
+          <span title="Stock actuel">Stock</span>
+        </th>
+        <th>
+          <span title="Stock minimum déclanchant la commande">Minimum</span>
+        </th>
+        <th>
+          <span title="Stock à atteindre lors de la commande">Cible</span>
+        </th>
+        <th>
+          <span title="Date de création">Créé le</span>
+        </th>
+        <th>
+          <span title="Date de mise à jour">M.a.j. le</span>
+        </th>
+        <th>
+          <span title="Supprimé ?">Supprimé ?</span>
+        </th>
+      </tr>
+    </thead>
+    <tbody *ngIf="products; else noProduct">
+      <tr *ngFor="let product of products">
+        <th><a routerLink="/products/{{product.id}}">{{product.ean13}}</a></th>
+        <td>{{product.name}}</td>
+        <td>{{product.stockQty}}</td>
+        <td>{{product.minStockQty}}</td>
+        <td>{{product.targetStockQty}}</td>
+        <td>{{product.createdAt | date:'dd/MM/yyyy HH:mm:ss'}}</td>
+        <td>{{product.updatedAt | date:'dd/MM/yyyy HH:mm:ss'}}</td>
+        <td>{{product.deleted}}</td>
+      </tr>
+    </tbody>
+    <ng-template #noProduct>
+      <tbody>
+
+        <tr>
+          <th colspan="9">
+            Aucun produit...
+          </th>
+        </tr>
+      </tbody>
+    </ng-template>
+  </table>
+</div>

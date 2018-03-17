@@ -26,3 +26,4 @@ hs_err_pid*
 /.settings/
 /gs.app.db
 /.apt_generated/
+/src/main/webapp/gs-webapp/package-lock.json
