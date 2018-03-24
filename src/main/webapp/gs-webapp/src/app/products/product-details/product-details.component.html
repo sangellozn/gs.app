@@ -1,3 +1,42 @@
-<p>
-  product-details works!
-</p>
+<h3 *ngIf="!product.id">
+  Nouveau produit</h3>
+<h3 *ngIf="product.id">Edition du produit {{product.ean13}}</h3>
+<a routerLink="/products">Retour à la liste</a>
+<form [formGroup]="productForm">
+  <div class="form-group">
+    <label for="ean13">EAN13</label>
+    <input type="text" class="form-control" id="ean13" name="ean13" formControlName="ean13" placeholder="Code barre du produit (13 chiffres)"
+      required maxlength="13" pattern="[0-9]{13}" />
+  </div>
+  <div class="form-group">
+    <label for="name">Nom</label>
+    <input type="text" class="form-control" id="name" name="name" formControlName="name" placeholder="Nom du produit" required
+      maxlength="100" />
+  </div>
+  <div class="form-group">
+    <label for="description">Description</label>
+    <textarea class="form-control" id="description" name="description" rows="3" formControlName="description" placeholder="Description simple du produit"
+      required maxlength="255"></textarea>
+  </div>
+  <!--
+  <div class="form-group">
+    <label for="stockQty">Quantité en stock</label>
+    <input type="number" class="form-control" id="stockQty" name="stockQty" [(ngModel)]="product.stockQty" aria-describedby="stockQtyHelp"
+      required />
+    <small id="stockQtyHelp" class="form-text text-muted">Quantité du produit en stock actuellement.</small>
+  </div>
+  <div class="form-group">
+    <label for="minStockQty">Quantité minimale</label>
+    <input type="number" class="form-control" id="minStockQty" name="minStockQty" [(ngModel)]="product.minStockQty" aria-describedby="minStockQtyHelp"
+      required />
+    <small id="minStockQtyHelp" class="form-text text-muted">Quantité du produit minimale en stock déclanchant l'achat.</small>
+  </div>
+  <div class="form-group">
+    <label for="targetStockQty">Quantité souhaité</label>
+    <input type="number" class="form-control" id="targetStockQty" name="targetStockQty" [(ngModel)]="product.targetStockQty"
+      aria-describedby="targetStockQtyHelp" required />
+    <small id="targetStockQtyHelp" class="form-text text-muted">Quantité du produit à atteindre en stock.</small>
+  </div>
+  -->
+  <button type="submit" class="btn btn-primary">Valider</button>
+</form>

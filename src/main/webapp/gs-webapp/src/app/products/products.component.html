@@ -1,5 +1,10 @@
 <div class="container">
-  <h3>Liste des produits</h3>
+  <div class="container">
+    <h3>Liste des produits</h3>
+    <a routerLink="/products/new">Ajouter un produit</a> - 
+    <a href="#">Filtrer les produits supprimés</a>
+  </div>
+  <br />
   <table class="table" *ngIf="products; else noProduct">
     <thead>
       <tr>
@@ -28,11 +33,14 @@
         <th>
           <span title="Supprimé ?">Supprimé ?</span>
         </th>
+        <th>
+          <span title="Action">Action</span>
+        </th>
       </tr>
     </thead>
     <tbody *ngIf="products; else noProduct">
       <tr *ngFor="let product of products">
-        <th><a routerLink="/products/{{product.id}}">{{product.ean13}}</a></th>
+        <th><a routerLink="/products/{{product.id}}/edit">{{product.ean13}}</a></th>
         <td>{{product.name}}</td>
         <td>{{product.stockQty}}</td>
         <td>{{product.minStockQty}}</td>
@@ -40,13 +48,13 @@
         <td>{{product.createdAt | date:'dd/MM/yyyy HH:mm:ss'}}</td>
         <td>{{product.updatedAt | date:'dd/MM/yyyy HH:mm:ss'}}</td>
         <td>{{product.deleted}}</td>
+        <td></td>
       </tr>
     </tbody>
     <ng-template #noProduct>
       <tbody>
-
         <tr>
-          <th colspan="9">
+          <th colspan="10">
             Aucun produit...
           </th>
         </tr>

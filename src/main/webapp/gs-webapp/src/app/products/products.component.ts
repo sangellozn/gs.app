@@ -15,10 +15,10 @@ export class ProductsComponent implements OnInit {
   private currentLimit: number = 20;
   private currentOrder: string = 'name';
 
-  constructor(private productsServices: ProductsService) { }
+  constructor(private productsService: ProductsService) { }
 
   ngOnInit() {
-    this.productsServices.getPage(this.currentPage, this.currentLimit, this.currentOrder)
+    this.productsService.getPage(this.currentPage, this.currentLimit, this.currentOrder)
       .subscribe(
         response => this.products = response.data, 
         error => console.error(error)

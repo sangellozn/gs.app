@@ -1,5 +1,6 @@
+import { BaseObject } from "./base-object";
 
-export class ShoppingListItem {
+export class ShoppingListItem extends BaseObject {
 
     public qty: number;
     public productId: string;
